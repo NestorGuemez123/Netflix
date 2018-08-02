@@ -82,6 +82,12 @@ namespace VideoOnDemand.Data
             favorito.HasRequired(m => m.usuario).WithMany().HasForeignKey(m => m.usuarioId);
             #endregion
 
+            #region  MapeoMovie
+            var movie = modelBuilder.Entity<Movie>();
+            movie.HasKey(y => y.MediaId);
+            movie.ToTable("Movies");
+            #endregion
+
             #region MapeoSerie
             //La relacion 1-n con Episodio se mapeo en el mapeo de Episodio
             var serie = modelBuilder.Entity<Serie>();
