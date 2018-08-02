@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VideoOnDemand.Entities;
 using VideoOnDemand.Repositories;
 using VideoOnDemand.Web.Helpers;
 using VideoOnDemand.Web.Models;
@@ -35,20 +36,37 @@ namespace VideoOnDemand.Web.Controllers
 
         // POST: Persona/Create
         [HttpPost]
-        public ActionResult Create(PersonaViewModel models)
+        public ActionResult Create(PersonaViewModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    PersonaRepository repository = new PersonaRepository(context);
+                    #region validacion
+                    var topicQry = new Persona { Name = model.Name };
+                    //Consulto los temas con el nombre y valido su existe un elemento
+                    bool existeTopic = repository.QueryByExample(topicQry).Count > 0;
+                    if (existeTopic)
+                    {
+                        ModelState.AddModelError("Name", "El nombre del tema ya existe");
+                        return View(model);
+                    }
+                    #endregion
+                    Persona persona = MapHelper.Map<Persona>(model);
+                    repository.Insert(persona);
+                    context.SaveChanges();
+
+                }
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError("", ex.Message);
                 return View();
             }
         }
-
         // GET: Persona/Edit/5
         public ActionResult Edit(int id)
         {
