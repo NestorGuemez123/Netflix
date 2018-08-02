@@ -15,9 +15,7 @@ namespace VideoOnDemand.Web.Controllers
         public ActionResult Index()
         {
             PersonaRepository repository = new PersonaRepository(context);
-            //Consulte los Individuas del repositorio
             var lst = repository.GetAll();
-            //Mapeamos la lista de Individuos
             var models = MapHelper.Map<IEnumerable<PersonaViewModel>>(lst);
 
             return View(models);
@@ -37,7 +35,7 @@ namespace VideoOnDemand.Web.Controllers
 
         // POST: Persona/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(PersonaViewModel models)
         {
             try
             {
