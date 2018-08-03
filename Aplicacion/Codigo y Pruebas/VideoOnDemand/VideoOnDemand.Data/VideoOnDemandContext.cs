@@ -65,8 +65,8 @@ namespace VideoOnDemand.Data
 
             #region MapeoOpinion
             var opinion = modelBuilder.Entity<Opinion>();
-            opinion.HasKey(o => o.Id);
-            opinion.Property(o => o.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            opinion.HasKey(o => o.OpinionId);
+            opinion.Property(o => o.OpinionId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             opinion.Property(o => o.Puntuacion).IsOptional();
             opinion.Property(o => o.Descripcion).IsOptional();
             #endregion
@@ -117,6 +117,15 @@ namespace VideoOnDemand.Data
             mediaOnPlay.HasRequired(m => m.Media).WithMany().HasForeignKey(m => m.MediaId);
             //Uno a muchos con Usuario
             mediaOnPlay.HasRequired(m => m.Usuario).WithMany().HasForeignKey(m => m.UsuarioId);
+            #endregion
+
+            #region MapeoPersona
+            var personaEntity = modelBuilder.Entity<Persona>();
+            personaEntity.HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            personaEntity.Property(x => x.Name).HasMaxLength(25);
+            personaEntity.Property(x => x.Descripcion).HasMaxLength(500);
+            personaEntity.Property(x => x.FechaNacimiento).IsOptional();
+
             #endregion
         }
     }
