@@ -182,6 +182,7 @@
     <Compile Include="Controllers\GeneroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MovieCatalogoController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -689,6 +690,7 @@
     <Content Include="Views\Genero\Create.cshtml" />
     <Content Include="Views\Genero\Edit.cshtml" />
     <Content Include="Views\Genero\Delete.cshtml" />
+    <Content Include="Views\MovieCatalogo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
