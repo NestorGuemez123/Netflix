@@ -110,16 +110,23 @@ namespace VideoOnDemand.Web.Controllers
         // GET: Persona/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            PersonaRepository repository = new PersonaRepository(context);
+            var persona = repository.Query(t => t.Id == id).First();
+            var model = MapHelper.Map<PersonaViewModel>(persona);
+            return View(model);
         }
 
         // POST: Persona/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, PersonaViewModel collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                PersonaRepository repository = new PersonaRepository(context);
+                var persona = repository.Query(e => e.Id == id).First();
+                persona.Status = false;
+                repository.Update(persona);
+                context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
