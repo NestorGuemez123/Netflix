@@ -18,7 +18,7 @@ namespace VideoOnDemand.Web.Controllers
         {
             VideoOnDemandContext context = new VideoOnDemandContext();
             GeneroRepository repository = new GeneroRepository(context);
-            var lst = repository.GetAll();
+            var lst = repository.Query(g => g.Activo == true);
             var models = MapHelper.Map<IEnumerable<GeneroViewModel>>(lst);
 
             return View(models);
@@ -84,7 +84,7 @@ namespace VideoOnDemand.Web.Controllers
 
         // POST: Genero/Edit/5
         [HttpPost]
-        public ActionResult Edit(int? id, GeneroViewModel model)
+        public ActionResult Edit(int id, GeneroViewModel model)
         {
             try
             {
@@ -118,10 +118,16 @@ namespace VideoOnDemand.Web.Controllers
             }
         }
 
+
         // GET: Genero/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var repository = new GeneroRepository(context);
+            var genero = repository.Query(t => t.GeneroId == id).First();
+            var model = MapHelper.Map<GeneroViewModel>(genero);
+
+
+            return View(model);
         }
 
         // POST: Genero/Delete/5
@@ -130,9 +136,11 @@ namespace VideoOnDemand.Web.Controllers
         {
             try
             {
+
                 GeneroRepository repository = new GeneroRepository(context);
-                Genero genero = MapHelper.Map<Genero>(model);
-                repository.Delete(genero);
+                var genero = repository.Query(e => e.GeneroId == id).First();
+                genero.Activo = false;
+                repository.Update(genero);
                 context.SaveChanges();
 
                 return RedirectToAction("Index");
