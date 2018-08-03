@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using VideoOnDemand.Entities;
 using VideoOnDemand.Repositories;
 using VideoOnDemand.Web.Helpers;
 using VideoOnDemand.Web.Models;
@@ -16,7 +15,9 @@ namespace VideoOnDemand.Web.Controllers
         public ActionResult Index()
         {
             PersonaRepository repository = new PersonaRepository(context);
+            //Consulte los Individuas del repositorio
             var lst = repository.GetAll();
+            //Mapeamos la lista de Individuos
             var models = MapHelper.Map<IEnumerable<PersonaViewModel>>(lst);
 
             return View(models);
@@ -36,68 +37,33 @@ namespace VideoOnDemand.Web.Controllers
 
         // POST: Persona/Create
         [HttpPost]
-        public ActionResult Create(PersonaViewModel model)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    PersonaRepository repository = new PersonaRepository(context);
-                    #region validacion
-                    var topicQry = new Persona { Name = model.Name };
-                    //Consulto los temas con el nombre y valido su existe un elemento
-                    bool existeTopic = repository.QueryByExample(topicQry).Count > 0;
-                    if (existeTopic)
-                    {
-                        ModelState.AddModelError("Name", "El nombre del tema ya existe");
-                        return View(model);
-                    }
-                    #endregion
-                    Persona persona = MapHelper.Map<Persona>(model);
-                    repository.Insert(persona);
-                    context.SaveChanges();
-
-                }
+                // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch
             {
-                ModelState.AddModelError("", ex.Message);
                 return View();
             }
         }
+
         // GET: Persona/Edit/5
         public ActionResult Edit(int id)
         {
-            PersonaRepository repository = new PersonaRepository(context);
-            var persona = repository.Query(t => t.Id == id).First();
-            var model = MapHelper.Map<PersonaViewModel>(persona);
-            return View(model);
+            return View();
         }
 
         // POST: Persona/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, PersonaViewModel model)
+        public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    PersonaRepository repository = new PersonaRepository(context);
-                    #region validacion
-                    //Consulto los temas con el nombre y valido su existe un elemento
-                    bool existePersona = repository.Query(x => x.Name == model.Name && x.Id != model.Id).Count > 0;
-                    if (existePersona)
-                    {
-                        ModelState.AddModelError("Name", "El nombre del tema ya existe");
-                        return View(model);
-                    }
-                    #endregion
-                    Persona persona = MapHelper.Map<Persona>(model);
-                    repository.Update(persona);
-                    context.SaveChanges();
-                }
+                // TODO: Add update logic here
 
                 return RedirectToAction("Index");
             }

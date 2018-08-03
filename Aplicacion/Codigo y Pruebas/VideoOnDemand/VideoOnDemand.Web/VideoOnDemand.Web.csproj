@@ -179,10 +179,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EpisodioController.cs" />
-    <Compile Include="Controllers\GeneroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+<<<<<<< HEAD
     <Compile Include="Controllers\MovieCatalogoController.cs" />
+=======
+    <Compile Include="Controllers\MovieController.cs" />
+>>>>>>> 81d96a0b6f8388a78a74f65eacc0e3ab021e0074
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -191,9 +194,9 @@
     <Compile Include="Helpers\MapHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EpisodioViewModel.cs" />
-    <Compile Include="Models\GeneroViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MediaViewModel.cs" />
     <Compile Include="Models\MovieViewModel.cs" />
     <Compile Include="Models\PaginatorViewModel.cs" />
     <Compile Include="Models\PersonaViewModel.cs" />
@@ -684,6 +687,7 @@
     <Content Include="Views\Episodio\Create.cshtml" />
     <Content Include="Views\Episodio\Index.cshtml" />
     <Content Include="Views\Persona\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Persona\Create.cshtml" />
     <Content Include="Views\Persona\Edit.cshtml" />
     <Content Include="Views\Genero\Index.cshtml" />
@@ -691,6 +695,12 @@
     <Content Include="Views\Genero\Edit.cshtml" />
     <Content Include="Views\Genero\Delete.cshtml" />
     <Content Include="Views\MovieCatalogo\Index.cshtml" />
+=======
+    <Content Include="Views\Movie\Index.cshtml" />
+    <Content Include="Views\Movie\Create.cshtml" />
+    <Content Include="Views\Movie\Edit.cshtml" />
+    <Content Include="Views\Movie\Delete.cshtml" />
+>>>>>>> 81d96a0b6f8388a78a74f65eacc0e3ab021e0074
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
