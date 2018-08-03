@@ -14,22 +14,19 @@
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.DuracionMin)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaRegistro)
-        </th>
+       
         <th>
             @Html.DisplayNameFor(model => model.FechaLanzamiento)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Activo)
+            @Html.DisplayNameFor(model => model.EstadosMedia)
         </th>
-        <th></th>
+       
+        <th>Actions</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -37,24 +34,22 @@
         <td>
             @Html.DisplayFor(modelItem => item.Nombre)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.DuracionMin)
+            min
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaRegistro)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.FechaLanzamiento)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Activo)
-        </td>
+
+        <th>
+                @Html.DisplayFor(modelItem => item.EstadosMedia)           
+        </th>
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.MediaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MediaId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.MediaId })
         </td>
     </tr>
