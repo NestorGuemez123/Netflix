@@ -70,16 +70,34 @@ namespace VideoOnDemand.Web.Controllers
         // GET: Persona/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            PersonaRepository repository = new PersonaRepository(context);
+            var persona = repository.Query(t => t.Id == id).First();
+            var model = MapHelper.Map<PersonaViewModel>(persona);
+            return View(model);
         }
 
         // POST: Persona/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, PersonaViewModel model)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    PersonaRepository repository = new PersonaRepository(context);
+                    #region validacion
+                    //Consulto los temas con el nombre y valido su existe un elemento
+                    bool existePersona = repository.Query(x => x.Name == model.Name && x.Id != model.Id).Count > 0;
+                    if (existePersona)
+                    {
+                        ModelState.AddModelError("Name", "El nombre del tema ya existe");
+                        return View(model);
+                    }
+                    #endregion
+                    Persona persona = MapHelper.Map<Persona>(model);
+                    repository.Update(persona);
+                    context.SaveChanges();
+                }
 
                 return RedirectToAction("Index");
             }
